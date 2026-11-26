@@ -3,9 +3,6 @@ using System.Text;
 
 namespace administracion_cafeteria
 {
-    /// <summary>
-    /// Datos de un pedido guardado en el CSV.
-    /// </summary>
     internal record Pedido(
         string Codigo,
         string Productos,
@@ -14,11 +11,6 @@ namespace administracion_cafeteria
         string Atencion,
         string Pago);
 
-    /// <summary>
-    /// Lectura/escritura del CSV de pedidos y generación del código de pedido.
-    /// Registro y Consulta usan esta misma clase, así siempre trabajan sobre el mismo archivo.
-    /// Formato de cada línea: codigo,productos,total,fecha,atencion,pago
-    /// </summary>
     internal static class RepositorioPedidos
     {
         private const string Prefijo = "PED-";
@@ -26,9 +18,6 @@ namespace administracion_cafeteria
         public static string Archivo =>
             Path.Combine(Application.StartupPath, "pedidos_cafeteria.csv");
 
-        /// <summary>
-        /// Devuelve el siguiente código libre: PED-0001, PED-0002, ...
-        /// </summary>
         public static string SiguienteCodigo()
         {
             int maximo = 0;
@@ -43,7 +32,7 @@ namespace administracion_cafeteria
 
         public static void Guardar(Pedido pedido)
         {
-            // Se quitan las comas de los textos para no romper el formato CSV.
+
             string productos = pedido.Productos.Replace(",", " ");
 
             string linea = string.Join(",",
@@ -57,11 +46,6 @@ namespace administracion_cafeteria
             File.AppendAllText(Archivo, linea + Environment.NewLine, Encoding.UTF8);
         }
 
-        /// <summary>
-        /// Lee todos los pedidos válidos y los devuelve en un arreglo.
-        /// Si el archivo no existe devuelve un arreglo vacío.
-        /// Se ignoran las líneas que no tengan el formato nuevo (por ejemplo, registros antiguos).
-        /// </summary>
         public static Pedido[] Cargar()
         {
             if (!File.Exists(Archivo))
@@ -69,7 +53,6 @@ namespace administracion_cafeteria
 
             string[] lineas = File.ReadAllLines(Archivo, Encoding.UTF8);
 
-            // Como máximo habrá un pedido por línea
             Pedido[] pedidos = new Pedido[lineas.Length];
             int cantidad = 0;
 
