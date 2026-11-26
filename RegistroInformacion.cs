@@ -24,9 +24,9 @@ namespace administracion_cafeteria
             { "Medialuna", 1500 }
         };
 
-        const int MAX_PRODUCTOS = 50;              
+        const int MAX_PRODUCTOS = 50;
         int[] subtotales = new int[MAX_PRODUCTOS];
-        int cantidadProductos = 0;                 
+        int cantidadProductos = 0;
         int total = 0;
         float IVA = 0.19f;
         string[] detalleProductos = new string[MAX_PRODUCTOS];
@@ -72,7 +72,7 @@ namespace administracion_cafeteria
 
             MostrarNuevoCodigo();
         }
-        
+
         private void MostrarNuevoCodigo()
         {
             codigoPedido = RepositorioPedidos.SiguienteCodigo();
@@ -165,7 +165,7 @@ namespace administracion_cafeteria
 
         private void txtBxNombrePedido_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -191,7 +191,7 @@ namespace administracion_cafeteria
             var pedido = new Pedido(
                 codigo,
                 string.Join(" | ", detalleProductos, 0, cantidadProductos),
-                (int)Math.Round(total * (1 + IVA)), 
+                (int)Math.Round(total * (1 + IVA)),
                 DTIFecha.Value.ToString("yyyy-MM-dd"),
                 rbnServir.Checked ? "Servir" : "Llevar",
                 rbnEfectivo.Checked ? "Efectivo" : "Tarjeta");
@@ -215,6 +215,11 @@ namespace administracion_cafeteria
         }
 
         private void lblPrecio_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAtencion_Click(object sender, EventArgs e)
         {
 
         }
