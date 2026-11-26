@@ -12,7 +12,6 @@ namespace administracion_cafeteria
 {
     public partial class RegistroInformacion : Form
     {
-        //Diccionario de prodcutos y sus precios
         Dictionary<string, int> precios = new Dictionary<string, int>()
         {
             { "Cafe Espresso", 2000 },
@@ -25,9 +24,9 @@ namespace administracion_cafeteria
             { "Medialuna", 1500 }
         };
 
-        const int MAX_PRODUCTOS = 50;                 // máximo de líneas por pedido
+        const int MAX_PRODUCTOS = 50;              
         int[] subtotales = new int[MAX_PRODUCTOS];
-        int cantidadProductos = 0;                    // cuántas posiciones están en uso
+        int cantidadProductos = 0;                 
         int total = 0;
         float IVA = 0.19f;
         string[] detalleProductos = new string[MAX_PRODUCTOS];
@@ -73,15 +72,14 @@ namespace administracion_cafeteria
 
             MostrarNuevoCodigo();
         }
-
-        // Calcula el siguiente código y lo muestra en el label
+        
         private void MostrarNuevoCodigo()
         {
             codigoPedido = RepositorioPedidos.SiguienteCodigo();
             lblNumPedido.Text = "Número del Pedido: " + codigoPedido;
         }
 
-        // Deja el formulario listo para un pedido nuevo
+
         private void LimpiarFormulario()
         {
             lsbxProductos.Items.Clear();
@@ -145,7 +143,6 @@ namespace administracion_cafeteria
             int subtotal = precios[producto] * cantidad;
 
 
-            // ListBox: muestra el producto agregado
             lsbxProductos.Items.Add($"{cantidad} x {producto} - ${subtotal:N0}");
 
 
@@ -162,7 +159,6 @@ namespace administracion_cafeteria
             lblPrecio.Text = $"Total: ${(total * (1 + IVA)):N0}";
 
 
-            // Reiniciar los controles
             numericUpDown1.Value = 1;
             cbProducto.SelectedIndex = -1;
         }
@@ -174,7 +170,6 @@ namespace administracion_cafeteria
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            // Validaciones
             if (cantidadProductos == 0 || total == 0)
             {
                 MessageBox.Show("Agrega al menos un producto antes de registrar el pedido.");
@@ -191,13 +186,12 @@ namespace administracion_cafeteria
                 return;
             }
 
-            // Se vuelve a calcular el código justo al registrar, para evitar repetidos
             string codigo = RepositorioPedidos.SiguienteCodigo();
 
             var pedido = new Pedido(
                 codigo,
                 string.Join(" | ", detalleProductos, 0, cantidadProductos),
-                (int)Math.Round(total * (1 + IVA)),   // mismo total (con IVA) que se muestra en pantalla
+                (int)Math.Round(total * (1 + IVA)), 
                 DTIFecha.Value.ToString("yyyy-MM-dd"),
                 rbnServir.Checked ? "Servir" : "Llevar",
                 rbnEfectivo.Checked ? "Efectivo" : "Tarjeta");
