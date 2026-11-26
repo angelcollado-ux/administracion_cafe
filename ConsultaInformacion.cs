@@ -11,7 +11,6 @@ namespace administracion_cafeteria
 {
     public partial class ConsultaInformacion : Form
     {
-        // Pedidos cargados desde el CSV (el ComboBox muestra solo el código)
         private Pedido[] pedidos = new Pedido[0];
 
         public ConsultaInformacion()
@@ -24,7 +23,6 @@ namespace administracion_cafeteria
             CargarCodigos();
         }
 
-        // Llena el ComboBox con los códigos de todos los pedidos registrados
         private void CargarCodigos()
         {
             pedidos = RepositorioPedidos.Cargar();
@@ -42,7 +40,6 @@ namespace administracion_cafeteria
             this.Close();
         }
 
-        // Botón Consultar: vuelve a leer el archivo (por si hubo pedidos nuevos) y muestra el seleccionado
         private void button1_Click(object sender, EventArgs e)
         {
             string? seleccionado = cbCodigoPedido.SelectedItem?.ToString();
@@ -56,10 +53,10 @@ namespace administracion_cafeteria
                 return;
             }
 
-            cbCodigoPedido.SelectedItem = seleccionado;   // dispara la muestra del detalle
+            cbCodigoPedido.SelectedItem = seleccionado; 
         }
 
-        // Al elegir un código en el ComboBox se muestra el detalle del pedido
+
         private void cbCodigoPedido_SelectedIndexChanged(object sender, EventArgs e)
         {
             lsbxConsultaInformacion.Items.Clear();
